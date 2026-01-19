@@ -1,0 +1,10 @@
+
+*.pro.user
+*.pro.user.*
+*.autosave
+*.doc
+
+build/
+build-*/
+debug/
+release/
