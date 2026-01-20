@@ -9,6 +9,7 @@
 
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,9 +29,14 @@ public:
 
 private slots:
     void startServer();
+    void stopServer();
+    void newConnection();
+    void clientDisconect();
 
 private:
     Ui::MainWindow *ui;
     QTcpServer *m_server;
+    QList<QTcpSocket*> m_clients;
+
 };
 #endif // MAINWINDOW_H

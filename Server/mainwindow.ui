@@ -396,7 +396,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="Te_logServer"/>
+         <widget class="QTextEdit" name="Te_logServer">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="StatsServer">
