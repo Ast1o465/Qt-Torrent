@@ -7,25 +7,36 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     m_server = new QTcpServer(this);
-
-    ui->Btn_stop->setEnabled(false);
-    ui->L_status->setStyleSheet("color: red");
+    m_fileModel = new QFileSystemModel(this);
 
     QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
-
     ip = settings.value("Network/Address", "127.0.0.1").toString();
     port = settings.value("Network/Port", 8888).toInt();
 
     QString path = settings.value("Storage/Path", "./server_files").toString();
 
+    QString m_currentPath = path;
+
+    QDir dir(m_currentPath);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+
+    m_fileModel->setRootPath(path);
+    ui->Tv_listFile->setModel(m_fileModel);
+    ui->Tv_listFile->setRootIndex(m_fileModel->index(path));
+
+    ui->Btn_stop->setEnabled(false);
+    ui->L_status->setStyleSheet("color: red");
+
     ui->L_ip->setText(ip);
     ui->L_port->setText(QString::number(port));
-
     ui->L_dir->setText(path);
 
 
     connect(ui->Btn_start, &QPushButton::clicked, this, &MainWindow::startServer);
     connect(ui->Btn_stop, &QPushButton::clicked, this, &MainWindow::stopServer);
+    // connect(ui->Btn_update, &QPushButton::clicked, this, &MainWindow::updateFileList);
 }
 
 MainWindow::~MainWindow()
@@ -74,7 +85,7 @@ void MainWindow::newConnection()
 
         m_clients.append(socket);
 
-        connect(socket, &QTcpSocket::disconnected, this, &MainWindow::clientDisconect);
+        connect(socket, &QTcpSocket::disconnected, this, &MainWindow::clientDisconnect);
 
         QString clientIp = socket->peerAddress().toString();
         ui->Te_logServer->append("New client connected: " + clientIp);
@@ -83,7 +94,7 @@ void MainWindow::newConnection()
     }
 }
 
-void MainWindow::clientDisconect()
+void MainWindow::clientDisconnect()
 {
     QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
 
@@ -95,3 +106,8 @@ void MainWindow::clientDisconect()
         ui->L_user->setText(QString::number(m_clients.size()));
     }
 }
+
+// void MainWindow::updateFileList()
+// {
+//     ui->Tv_listFile->update();
+// }

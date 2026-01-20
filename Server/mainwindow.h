@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 
+#include <QFileSystemModel>
 #include <QSettings>
 #include <QDir>
 
@@ -30,13 +31,17 @@ public:
 private slots:
     void startServer();
     void stopServer();
+
     void newConnection();
-    void clientDisconect();
+    void clientDisconnect();
+
+    // void updateFileList();
 
 private:
     Ui::MainWindow *ui;
     QTcpServer *m_server;
     QList<QTcpSocket*> m_clients;
+    QFileSystemModel *m_fileModel;
 
 };
 #endif // MAINWINDOW_H
