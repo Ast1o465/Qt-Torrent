@@ -102,77 +102,32 @@
            <widget class="QTableView" name="Tv_listFile"/>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="DirAndUpdate">
-            <item>
-             <layout class="QHBoxLayout" name="Dir">
-              <item>
-               <widget class="QLabel" name="L_constDir">
-                <property name="text">
-                 <string>File directory:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="L_dir">
-                <property name="text">
-                 <string>test</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="Btn_update">
-              <property name="text">
-               <string>update</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <layout class="QHBoxLayout" name="DirAndUpdate"/>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
-             <layout class="QHBoxLayout" name="TotalFile">
+             <layout class="QHBoxLayout" name="DiskSpace">
               <item>
-               <widget class="QLabel" name="L_constFile">
-                <property name="font">
-                 <font>
-                  <pointsize>9</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Total files:</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="Dir">
+                <item>
+                 <widget class="QLabel" name="L_constDir">
+                  <property name="text">
+                   <string>File directory:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="L_dir">
+                  <property name="text">
+                   <string>test</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QLabel" name="L_fileCount">
-                <property name="font">
-                 <font>
-                  <pointsize>9</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_8">
+               <spacer name="horizontalSpacer_9">
                 <property name="orientation">
                  <enum>Qt::Orientation::Horizontal</enum>
                 </property>
@@ -184,10 +139,6 @@
                 </property>
                </spacer>
               </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="DiskSpace">
               <item>
                <widget class="QLabel" name="L_constDisk">
                 <property name="font">
@@ -211,19 +162,6 @@
                  <string>230</string>
                 </property>
                </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </item>

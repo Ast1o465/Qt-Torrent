@@ -2,7 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QString>
+
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFile>
 
 #include <QFileSystemModel>
 #include <QSettings>
@@ -32,10 +37,11 @@ private slots:
     void startServer();
     void stopServer();
 
+    void uploadFile();
+    void deleteFile();
+
     void newConnection();
     void clientDisconnect();
-
-    // void updateFileList();
 
 private:
     Ui::MainWindow *ui;

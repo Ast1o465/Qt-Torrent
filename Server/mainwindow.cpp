@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_fileModel->setRootPath(path);
     ui->Tv_listFile->setModel(m_fileModel);
     ui->Tv_listFile->setRootIndex(m_fileModel->index(path));
+    ui->Tv_listFile->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->Tv_listFile->setSelectionMode(QAbstractItemView::SingleSelection);
 
     ui->Btn_stop->setEnabled(false);
     ui->L_status->setStyleSheet("color: red");
@@ -36,7 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->Btn_start, &QPushButton::clicked, this, &MainWindow::startServer);
     connect(ui->Btn_stop, &QPushButton::clicked, this, &MainWindow::stopServer);
-    // connect(ui->Btn_update, &QPushButton::clicked, this, &MainWindow::updateFileList);
+
+    connect(ui->Btn_UploadFile, &QPushButton::clicked, this, &MainWindow::uploadFile);
+    connect(ui->Btn_DeleteFile,&QPushButton::clicked, this, &MainWindow::deleteFile);
 }
 
 MainWindow::~MainWindow()
@@ -78,6 +82,40 @@ void MainWindow::stopServer()
     }
 }
 
+void MainWindow::uploadFile()
+{
+    QString sourcePath = QFileDialog::getOpenFileName(this, "Select a file to upload");
+
+    if (sourcePath.isEmpty())return;
+
+    QString serverPath = ui->L_dir->text();
+    QString fileName = QFileInfo(sourcePath).fileName();
+    QString destinationPath = serverPath + "/" + fileName;
+
+    if (QFile::exists(destinationPath)) {
+        QMessageBox::warning(this, "Error", "A file with this name already exists on the server!");
+        return;
+    }
+
+    if (QFile::copy(sourcePath, destinationPath)) {
+        ui->Te_logServer->append("File added: " + fileName);
+    } else {
+        ui->Te_logServer->append("File copy error! ");
+        QMessageBox::critical(this, "Error", "Failed to copy file.");
+    }
+}
+
+void MainWindow::deleteFile()
+{
+    QModelIndex index = ui->Tv_listFile->currentIndex();
+    auto reply = QMessageBox::question(this, "delete", "Delete this file?", QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        m_fileModel->remove(index);
+    }
+}
+
+
 void MainWindow::newConnection()
 {
     while (m_server->hasPendingConnections()) {
@@ -106,8 +144,3 @@ void MainWindow::clientDisconnect()
         ui->L_user->setText(QString::number(m_clients.size()));
     }
 }
-
-// void MainWindow::updateFileList()
-// {
-//     ui->Tv_listFile->update();
-// }
