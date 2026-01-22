@@ -5,9 +5,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     m_server = new QTcpServer(this);
     m_fileModel = new QFileSystemModel(this);
+    // updateDiskSpace();
 
     QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
     ip = settings.value("Network/Address", "127.0.0.1").toString();
@@ -113,6 +115,11 @@ void MainWindow::deleteFile()
     if (reply == QMessageBox::Yes) {
         m_fileModel->remove(index);
     }
+}
+
+void MainWindow::updateDiskSpace()
+{
+
 }
 
 

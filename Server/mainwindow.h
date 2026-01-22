@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QString>
 
+#include <QStorageInfo>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFile>
@@ -39,6 +40,7 @@ private slots:
 
     void uploadFile();
     void deleteFile();
+    void updateDiskSpace();
 
     void newConnection();
     void clientDisconnect();
