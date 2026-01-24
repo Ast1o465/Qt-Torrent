@@ -13,6 +13,9 @@
 #include <QFileSystemModel>
 #include <QSettings>
 #include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -31,8 +34,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int port;
-    QString ip;
 
 private slots:
     void startServer();
@@ -50,6 +51,8 @@ private:
     QTcpServer *m_server;
     QList<QTcpSocket*> m_clients;
     QFileSystemModel *m_fileModel;
+
+    void sendFileList(QTcpSocket *socket);
 
 };
 #endif // MAINWINDOW_H

@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     // updateDiskSpace();
 
     QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
-    ip = settings.value("Network/Address", "127.0.0.1").toString();
-    port = settings.value("Network/Port", 8888).toInt();
+    QString ip = settings.value("Network/Address", "127.0.0.1").toString();
+    int port = settings.value("Network/Port", 8888).toInt();
 
     QString path = settings.value("Storage/Path", "./server_files").toString();
 
@@ -52,7 +52,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::startServer()
 {
-    if(m_server->listen(QHostAddress(ip), port)) {
+    if(m_server->listen(QHostAddress(ui->L_ip->text()), ui->L_port->text().toInt())) {
         ui->Btn_stop->setEnabled(true);
         ui->Btn_start->setEnabled(false);
         ui->Te_logServer->append("Server started.");
@@ -136,6 +136,7 @@ void MainWindow::newConnection()
         ui->Te_logServer->append("New client connected: " + clientIp);
 
         ui->L_user->setText(QString::number(m_clients.size()));
+        sendFileList(socket);
     }
 }
 
@@ -151,3 +152,33 @@ void MainWindow::clientDisconnect()
         ui->L_user->setText(QString::number(m_clients.size()));
     }
 }
+
+void MainWindow::sendFileList(QTcpSocket *socket)
+{
+    if (!socket) return;
+
+    QJsonArray fileArray;
+    QDir dir(ui->L_dir->text());
+    QFileInfoList list = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
+
+    for (const QFileInfo &info : list) {
+        fileArray.append(QJsonObject{
+            {"name", info.fileName()},
+            {"size", info.size()}
+        });
+    }
+
+    QJsonDocument doc(fileArray);
+    QByteArray jsonData =doc.toJson();
+
+    //Package formation
+    QByteArray packet;
+    QDataStream out(&packet, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_15);
+
+    out << (quint16)0x01;
+    out << jsonData;
+
+    socket->write(packet);
+    ui->Te_logServer->append("Sent file list to client. ");
+ }
