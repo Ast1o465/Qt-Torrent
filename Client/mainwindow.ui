@@ -84,8 +84,14 @@
            </item>
            <item>
             <widget class="QLabel" name="L_status">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="text">
-              <string>not connected to server</string>
+              <string>                                                  </string>
              </property>
             </widget>
            </item>

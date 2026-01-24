@@ -22,6 +22,7 @@ public:
 
 private slots:
     void connectToServer();
+    void disconnectFromServer();
 
 private:
     Ui::MainWindow *ui;
