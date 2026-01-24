@@ -16,24 +16,24 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="serverInfo">
       <item>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="connectToServer">
         <property name="title">
          <string>Connecting to the server</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QHBoxLayout" name="connectAndDisconnect">
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="Btn_connect">
              <property name="text">
               <string>Connect</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="Btn_disconnect">
              <property name="text">
               <string>Disconnect</string>
              </property>
@@ -42,65 +42,52 @@
           </layout>
          </item>
          <item row="1" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="addresAndPort">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="Ip">
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="L_ipConst">
                <property name="text">
                 <string>IP    </string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit"/>
+              <widget class="QLineEdit" name="Le_ip"/>
              </item>
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
+            <layout class="QHBoxLayout" name="Port">
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="L_portConst">
                <property name="text">
                 <string>Port</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
+              <widget class="QLineEdit" name="Le_port"/>
              </item>
             </layout>
            </item>
           </layout>
          </item>
          <item row="2" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QHBoxLayout" name="statusServer">
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="L_statusConst">
              <property name="text">
               <string>Status:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="L_status">
              <property name="text">
               <string>not connected to server</string>
              </property>
             </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </item>
@@ -108,13 +95,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="logServer">
         <property name="title">
          <string>Server logs</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QTextEdit" name="textEdit"/>
+          <widget class="QTextEdit" name="Te_log"/>
          </item>
         </layout>
        </widget>
@@ -126,21 +113,21 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="Btn_start">
           <property name="text">
            <string>&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="Btn_stop">
           <property name="text">
            <string>| |</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <spacer name="Spacer1">
           <property name="orientation">
            <enum>Qt::Orientation::Horizontal</enum>
           </property>
