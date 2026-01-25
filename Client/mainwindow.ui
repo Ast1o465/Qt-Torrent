@@ -91,7 +91,7 @@
               </size>
              </property>
              <property name="text">
-              <string>                                                  </string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -152,7 +152,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="Tw_main">
         <property name="minimumSize">
          <size>
           <width>600</width>

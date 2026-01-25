@@ -5,6 +5,10 @@
 #include <QString>
 
 #include <QTcpSocket>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QProgressBar>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,5 +31,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket *m_socket;
+
+    void retrieveDataFromServer();
 };
 #endif // MAINWINDOW_H
