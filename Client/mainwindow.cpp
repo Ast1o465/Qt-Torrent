@@ -112,3 +112,8 @@ void MainWindow::retrieveDataFromServer()
         }
     }
 }
+
+void MainWindow::sendFileRequest(QString fileName)
+{
+
+}

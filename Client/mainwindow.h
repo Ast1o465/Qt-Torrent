@@ -33,5 +33,6 @@ private:
     QTcpSocket *m_socket;
 
     void retrieveDataFromServer();
+    void sendFileRequest(QString fileName);
 };
 #endif // MAINWINDOW_H
