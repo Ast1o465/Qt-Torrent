@@ -11,19 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_fileModel = new QFileSystemModel(this);
     createSettingsFile();
 
-    // QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
-    // QString ip = settings.value("Network/Address", "127.0.0.1").toString();
-    // int port = settings.value("Network/Port", 8888).toInt();
-
-    // QString path = settings.value("Storage/Path", "./server_files").toString();
-
-    // QString m_currentPath = path;
-
-    // QDir dir(m_currentPath);
-    // if (!dir.exists()) {
-    //     dir.mkpath(".");
-    // }
-
     m_fileModel->setRootPath(ui->L_dir->text());
     ui->Tv_listFile->setModel(m_fileModel);
     ui->Tv_listFile->setRootIndex(m_fileModel->index(ui->L_dir->text()));
@@ -32,11 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->Btn_stop->setEnabled(false);
     ui->L_status->setStyleSheet("color: red");
-
-    // ui->L_ip->setText(ip);
-    // ui->L_port->setText(QString::number(port));
-    // ui->L_dir->setText(path);
-
 
     connect(ui->Btn_start, &QPushButton::clicked, this, &MainWindow::startServer);
     connect(ui->Btn_stop, &QPushButton::clicked, this, &MainWindow::stopServer);
