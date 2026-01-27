@@ -9,33 +9,33 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     m_server = new QTcpServer(this);
     m_fileModel = new QFileSystemModel(this);
-    // updateDiskSpace();
+    createSettingsFile();
 
-    QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
-    QString ip = settings.value("Network/Address", "127.0.0.1").toString();
-    int port = settings.value("Network/Port", 8888).toInt();
+    // QSettings settings("config.ini", QSettings::IniFormat); // It's not working, it needs to be fixed.
+    // QString ip = settings.value("Network/Address", "127.0.0.1").toString();
+    // int port = settings.value("Network/Port", 8888).toInt();
 
-    QString path = settings.value("Storage/Path", "./server_files").toString();
+    // QString path = settings.value("Storage/Path", "./server_files").toString();
 
-    QString m_currentPath = path;
+    // QString m_currentPath = path;
 
-    QDir dir(m_currentPath);
-    if (!dir.exists()) {
-        dir.mkpath(".");
-    }
+    // QDir dir(m_currentPath);
+    // if (!dir.exists()) {
+    //     dir.mkpath(".");
+    // }
 
-    m_fileModel->setRootPath(path);
+    m_fileModel->setRootPath(ui->L_dir->text());
     ui->Tv_listFile->setModel(m_fileModel);
-    ui->Tv_listFile->setRootIndex(m_fileModel->index(path));
+    ui->Tv_listFile->setRootIndex(m_fileModel->index(ui->L_dir->text()));
     ui->Tv_listFile->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->Tv_listFile->setSelectionMode(QAbstractItemView::SingleSelection);
 
     ui->Btn_stop->setEnabled(false);
     ui->L_status->setStyleSheet("color: red");
 
-    ui->L_ip->setText(ip);
-    ui->L_port->setText(QString::number(port));
-    ui->L_dir->setText(path);
+    // ui->L_ip->setText(ip);
+    // ui->L_port->setText(QString::number(port));
+    // ui->L_dir->setText(path);
 
 
     connect(ui->Btn_start, &QPushButton::clicked, this, &MainWindow::startServer);
@@ -150,6 +150,43 @@ void MainWindow::clientDisconnect()
 
         ui->Te_logServer->append("Client disconnected.");
         ui->L_user->setText(QString::number(m_clients.size()));
+    }
+}
+
+void MainWindow::createSettingsFile()
+{
+    QString configPath = QCoreApplication::applicationDirPath() + "/config.ini";
+    QSettings settings(configPath, QSettings::IniFormat);
+
+    if (!QFile::exists(configPath)) {
+        settings.beginGroup("Network");
+        settings.setValue("Address", "127.0.0.1");
+        settings.setValue("Port", 8888);
+        settings.endGroup();
+
+        settings.beginGroup("Storage");
+        settings.setValue("Path", "./server_files");
+        settings.endGroup();
+
+        settings.sync();
+    }
+
+    settings.beginGroup("Network");
+    QString ip = settings.value("Address", "127.0.0.1").toString();
+    int port = settings.value("Port", 8888).toInt();
+    settings.endGroup();
+
+    settings.beginGroup("Storage");
+    QString path = settings.value("Path", "./server_files").toString();
+    settings.endGroup();
+
+    ui->L_ip->setText(ip);
+    ui->L_port->setText(QString::number(port));
+    ui->L_dir->setText(path);
+
+    QDir dir(path);
+    if (!dir.exists()) {
+        dir.mkpath(".");
     }
 }
 

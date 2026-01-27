@@ -52,6 +52,7 @@ private:
     QList<QTcpSocket*> m_clients;
     QFileSystemModel *m_fileModel;
 
+    void createSettingsFile();
     void sendFileList(QTcpSocket *socket);
 
 };
