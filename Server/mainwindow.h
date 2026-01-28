@@ -42,6 +42,7 @@ private slots:
     void uploadFile();
     void deleteFile();
     void updateDiskSpace();
+    void openSettings();
 
     void newConnection();
     void clientDisconnect();
@@ -53,7 +54,7 @@ private:
     QFileSystemModel *m_fileModel;
 
     void createSettingsFile();
+    void extracted(QJsonArray &fileArray, QFileInfoList &list);
     void sendFileList(QTcpSocket *socket);
-
 };
 #endif // MAINWINDOW_H

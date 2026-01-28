@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->Btn_UploadFile, &QPushButton::clicked, this, &MainWindow::uploadFile);
     connect(ui->Btn_DeleteFile,&QPushButton::clicked, this, &MainWindow::deleteFile);
+    connect(ui->Btn_settings, &QPushButton::clicked, this, &MainWindow::openSettings);
 }
 
 MainWindow::~MainWindow()
@@ -103,6 +104,22 @@ void MainWindow::deleteFile()
 void MainWindow::updateDiskSpace()
 {
 
+}
+
+void MainWindow::openSettings()
+{
+    settingsdialog dialog(this);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        QString configPath = QCoreApplication::applicationDirPath() + "/config.ini";
+        QSettings settings(configPath, QSettings::IniFormat);
+
+        ui->L_ip->setText(settings.value("Network/Address").toString());
+        ui->L_port->setText(settings.value("Network/Port").toString());
+        ui->Te_logServer->append("Settings successfully updated!");
+    } else {
+        ui->Te_logServer->append("Settings change canceled.");
+    }
 }
 
 

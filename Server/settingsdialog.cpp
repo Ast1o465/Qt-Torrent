@@ -15,7 +15,7 @@ settingsdialog::settingsdialog(QWidget *parent)
     ui->SC_Le_dir->setText(settings.value("Storage/Path", "./server_files").toString());
 
     connect(ui->Btn_save, &QPushButton::clicked, this, &settingsdialog::saveAndClose);
-    connect(ui->Btn_save, &QPushButton::clicked, this, &settingsdialog::reject);
+    connect(ui->Btn_cancel, &QPushButton::clicked, this, &settingsdialog::reject);
     connect(ui->Tb_dir, &QToolButton::clicked, this, &settingsdialog::selectFolder);
 
 }
@@ -40,7 +40,6 @@ void settingsdialog::saveAndClose()
     settings.endGroup();
 
     settings.sync();
-
     accept();
 }
 
