@@ -190,6 +190,11 @@ void MainWindow::createSettingsFile()
     }
 }
 
+void MainWindow::sendFileContent(QTcpSocket *socket, QString fileName)
+{
+
+}
+
 void MainWindow::sendFileList(QTcpSocket *socket)
 {
     if (!socket) return;

@@ -54,6 +54,7 @@ private:
     QFileSystemModel *m_fileModel;
 
     void createSettingsFile();
+    void sendFileContent(QTcpSocket *socket, QString fileName);
     void extracted(QJsonArray &fileArray, QFileInfoList &list);
     void sendFileList(QTcpSocket *socket);
 };
