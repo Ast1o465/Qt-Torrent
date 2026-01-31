@@ -21,7 +21,6 @@ public:
 
 private:
     Ui::settingsdialog *ui;
-    sendFileContent(QTcpSocket *socket, QString fileName)
 
 private slots:
     void saveAndClose();

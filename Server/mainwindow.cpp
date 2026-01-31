@@ -192,7 +192,23 @@ void MainWindow::createSettingsFile()
 
 void MainWindow::sendFileContent(QTcpSocket *socket, QString fileName)
 {
+    QFile file(ui->L_dir->text() + "/" + fileName);
+    if (!file.open(QIODevice::ReadOnly)) return;
 
+    QByteArray packet;
+    QDataStream out(&packet, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_15);
+
+    out << (quint16)0x03 << file.size() << fileName;
+    socket->write(packet);
+
+    while (!file.atEnd()) {
+        packet.clear(); out.device()->seek(0);
+        out << (quint16)0x04 << file.read(64 * 1024);
+        socket->write(packet);
+
+        socket->waitForBytesWritten(10);
+    }
 }
 
 void MainWindow::sendFileList(QTcpSocket *socket)
