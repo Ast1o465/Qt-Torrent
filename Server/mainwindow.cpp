@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
     m_server = new QTcpServer(this);
     m_fileModel = new QFileSystemModel(this);
@@ -131,12 +130,38 @@ void MainWindow::newConnection()
         m_clients.append(socket);
 
         connect(socket, &QTcpSocket::disconnected, this, &MainWindow::clientDisconnect);
+        connect(socket, &QTcpSocket::readyRead, this, &MainWindow::readsRequests);
 
         QString clientIp = socket->peerAddress().toString();
         ui->Te_logServer->append("New client connected: " + clientIp);
 
         ui->L_user->setText(QString::number(m_clients.size()));
         sendFileList(socket);
+    }
+}
+
+void MainWindow::readsRequests()
+{
+    QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+    if (!socket) return;
+
+    QDataStream in(socket);
+    in.setVersion(QDataStream::Qt_5_15);
+
+    while (true) {
+        in.startTransaction();
+
+        quint16 type;
+        QString fileName;
+
+        in >> type >> fileName;
+
+        if (!in.commitTransaction()) break;
+
+        if (type == 0x02) {
+            ui->Te_logServer->append("The client wants the file: " + fileName);
+            sendFileContent(socket, fileName);
+        }
     }
 }
 

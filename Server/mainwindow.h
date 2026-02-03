@@ -45,6 +45,7 @@ private slots:
     void openSettings();
 
     void newConnection();
+    void readsRequests();
     void clientDisconnect();
 
 private:

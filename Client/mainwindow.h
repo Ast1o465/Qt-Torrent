@@ -4,10 +4,14 @@
 #include <QMainWindow>
 #include <QString>
 
-#include <QTcpSocket>
+#include <QSettings>
+#include <QDir>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <QJsonArray>
+#include <QJsonObject>
+#include <QFile>
+
+#include <QTcpSocket>
 #include <QProgressBar>
 
 QT_BEGIN_NAMESPACE
@@ -31,6 +35,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket *m_socket;
+    QFile *m_file;
+    qint64 m_fileSize;
+    qint64 m_bytesReceived;
+    bool m_isDownloading;
 
     void retrieveDataFromServer();
     void sendFileRequest(QString fileName);
